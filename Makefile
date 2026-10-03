@@ -1,17 +1,15 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11 -g -Iinclude
+CFLAGS = -Wall -Wextra -std=c11 -g
 
-TARGETS = server client \
-
-all: $(TARGETS)
+all: server client
 
 server: src/server.c src/termo.c
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CC) $(CFLAGS) -o $@ $^
 
-client: src/client.c
-	$(CC) $(CFLAGS) -o $@ $<
+client: src/client.c src/termo.c
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	rm -f $(TARGETS) *.o
+	rm -f server client *.o
 
 .PHONY: all clean

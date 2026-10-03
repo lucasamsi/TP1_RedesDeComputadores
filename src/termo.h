@@ -20,8 +20,9 @@ typedef struct {
     char message[MSG_SIZE];
 } GameMessage;
 
-int calculate_feedback(void) {
-    return 0;
-}
+void calculaFeedback(int guess[5], int palavra[5], int feedback[5]);
+void converteCase(char guess[]);
+void paraValorNumerico(char palavra[], int valor[5]);
+int validaRange(int valor[]);
 
 #endif 

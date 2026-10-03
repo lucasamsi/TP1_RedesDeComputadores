@@ -1,30 +1,53 @@
 #include <string.h>
 #include <ctype.h>
 
-// converte para maiusculo e checa se tem tamanho 5
-int converte_case(char palavraChute[]) {
-    if (strlen(palavraChute) == 5) {
-        for (int i = 0; i < 5; i++) {
-        palavraChute[i] = toupper(palavraChute[i]);
+void calculaFeedback(int guess[5], int palavra[5], int feedback[5]) {
+    int incidencia[26] = {0};
+    
+    for (int s = 0; s < 5; s++){
+        feedback[s] = 0;
+    }
+
+    for (int g = 0; g < 5; g++){
+        incidencia[palavra[g] - 'A']++;
+    }
+    
+    for (int i = 0; i < 5; i++) {
+        if (guess[i] == palavra[i]) {
+            feedback[i] = 2;
+            incidencia[palavra[i] - 'A']--;
         }
-        return 1;
-    } else {
-        return 0;
+    }
+    
+    
+    for (int k = 0; k < 5; k++){
+        if ((incidencia[guess[k] - 'A']) != 0){
+            if (feedback[k] != 2) {
+                feedback[k] = 1;
+                incidencia[guess[k] - 'A']--;
+            }
+        }
+    }
+
+}
+
+void converteCase(char guess[]) {
+    for (int i = 0; i < 5; i++) {
+        guess[i] = toupper(guess[i]);
     }
 }
 
-// ve se  a palavra esta entre A e Z (seus valores)
-int valida_range(char palavraChute[]) {
+void paraValorNumerico(char palavra[], int valor[5]) {
     for (int i = 0; i < 5; i++) {
-        if (palavraChute[i] < 'A' || palavraChute[i] > 'Z') {
+        valor[i] = (int)palavra[i]; 
+    }
+}
+
+int validaRange(int valor[]) {
+    for (int i = 0; i < 5; i++) {
+        if (valor[i] < 'A' || valor[i] > 'Z') {
             return 0;
         }
     }
     return 1;
 }
-
-void calcula_feedback(int guess[5], int palavra[5], int feedback[5]) {
-
-}
-
-int main
